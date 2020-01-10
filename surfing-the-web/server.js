@@ -1,24 +1,36 @@
+// Setting up dependencies
 const express = require("express");
-
-const mongoose = require("mongoose");
-const routes = require("./routes");
 const app = express();
+
+const routes = require("./routes");
+
 const PORT = process.env.PORT || 3001;
 
-// Define middleware here
-app.use(express.urlencoded({ extended: true }));
+//Define middleware here
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+//Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production"){
+    app.use(express.static("client/build"));
 }
 // Add routes, both API and view
-app.use(routes);
+app.use(routes)
 
-// Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "");
+// Connect to the Mongo Db
+//const mongoose = require("mongoose");
+//console.log("Connecting to Mongoose");
+// mongoose.connect(process.env.MONGOD_URI || "mongodb+srv://admin:googleBooksApp@cluster0-2txa4.mongodb.net/test?retryWrites=true&w=majority", {
+// mongoose.connect("", {
+//     useUnifiedTopology: true,
+//     useNewUrlParser: true
+// })
+//     .then(() => console.log("Connected to MongoDB Atlas"))
+//     .catch(err => {
+//         console.log(err);
+//         console.log("Could not connect");
+//     });
 
 // Start the API server
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+app.listen(PORT, function(){
+    console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
